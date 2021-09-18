@@ -61,5 +61,6 @@ namespace MoodTrackerBackendCosmos.GraphQL.Dailies
     }
 
     public record AddDailyInput(string Description);
+    #nullable enable
     public record EditDailyInput(string Id, string? Description, string? UserId);
 }
