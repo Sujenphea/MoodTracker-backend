@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using HotChocolate;
 using HotChocolate.Types;
-using Microsoft.Azure.Cosmos;
 using MoodTrackerBackendCosmos.Data;
 using MoodTrackerBackendCosmos.Extensions;
 using MoodTrackerBackendCosmos.Models;
-using User = MoodTrackerBackendCosmos.Models.User;
-using System.Security.Claims;
 using System.Threading;
-using HotChocolate.AspNetCore;
 
 namespace MoodTrackerBackendCosmos.GraphQL.Dailies
 {
@@ -27,12 +21,11 @@ namespace MoodTrackerBackendCosmos.GraphQL.Dailies
             var daily = new Daily
             {
                 Id = Guid.NewGuid().ToString(),
-                Description = input.description,
-                UserId = input.userId,
+                Description = input.Description,
+                UserId = input.UserId,
                 DateCreated = DateTime.Now.ToString("dd.MM.yyyy")
             };
 
-            //await context.AddAsync(u);
             await context.Dailies.AddAsync(daily);
             await context.SaveChangesAsync();
 
@@ -43,18 +36,16 @@ namespace MoodTrackerBackendCosmos.GraphQL.Dailies
         //[Authorize]
         public async Task<Daily> EditDailyAsync(EditDailyInput input, [ScopedService] AppDbContext context, CancellationToken cancellationToken)
         {
-            var daily = await context.Dailies.FindAsync(input.id);
+            var daily = await context.Dailies.FindAsync(input.Id);
 
-            daily.Description = input.description ?? daily.Description;
+            daily.Description = input.Description ?? daily.Description;
 
-            //await context.AddAsync(u);
-            //await context.Dailies.Save;
             await context.SaveChangesAsync();
 
             return daily;
         }
     }
 
-    public record AddDailyInput(string description, string userId);
-    public record EditDailyInput(string id, string? description, string? userId);
+    public record AddDailyInput(string Description, string UserId);
+    public record EditDailyInput(string Id, string? Description, string? UserId);
 }

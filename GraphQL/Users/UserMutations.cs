@@ -17,9 +17,9 @@ namespace MoodTrackerBackendCosmos.GraphQL.UserGraph
         {
             var user = new User {
                 Id = Guid.NewGuid().ToString(),
-                Name = input.name,
-                GitHub = input.gitHub,
-                ImageURI = input.imageURI
+                Name = input.Name,
+                GitHub = input.GitHub,
+                ImageURI = input.ImageURI
             };
 
             context.Users.Add(user);
@@ -29,7 +29,7 @@ namespace MoodTrackerBackendCosmos.GraphQL.UserGraph
         }
     }
 
-    public record UserInput(string name, string gitHub, string imageURI);
-    public record LoginInput(string code);
-    public record LoginPayload(User user, string jwt);
+    public record UserInput(string Name, string GitHub, string ImageURI);
+    public record LoginInput(string Code);
+    public record LoginPayload(User User, string Jwt);
 }

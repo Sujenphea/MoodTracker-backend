@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using MoodTrackerBackendCosmos.Data;
 using MoodTrackerBackendCosmos.Extensions;
 using MoodTrackerBackendCosmos.Models;
@@ -17,9 +13,6 @@ namespace MoodTrackerBackendCosmos.GraphQL.Dailies
         [UseAppDbContext]
         public IQueryable<Daily> GetDailies([ScopedService] AppDbContext context)
         {
-            //context.Data­base.EnsureCreated();
-            
-
             return context.Dailies;
         }
 

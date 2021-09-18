@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using HotChocolate;
 using HotChocolate.Types;
-using Microsoft.Azure.Cosmos;
 using Microsoft.EntityFrameworkCore;
 using MoodTrackerBackendCosmos.Data;
 using MoodTrackerBackendCosmos.Extensions;
-using MoodTrackerBackendCosmos.Models;
 using User = MoodTrackerBackendCosmos.Models.User;
 using System.Security.Claims;
 
@@ -18,14 +13,8 @@ namespace MoodTrackerBackendCosmos.GraphQL.Users
     public class UserQueries
     {
         [UseAppDbContext]
-        public Microsoft.EntityFrameworkCore.DbSet<User> GetUsers([ScopedService] AppDbContext context)
+        public DbSet<User> GetUsers([ScopedService] AppDbContext context)
         {
-            //context.Data­base.EnsureCreated();
-            foreach (var u in context.Users)
-            {
-                Console.WriteLine($"user: {u.Name}");
-            };
-
             return context.Users;
         }
 

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using MoodTrackerBackendCosmos.Data;
 using MoodTrackerBackendCosmos.GraphQL.Users;
 using MoodTrackerBackendCosmos.Models;
 using HotChocolate;
 using HotChocolate.Types;
-using Microsoft.EntityFrameworkCore;
 
 namespace MoodTrackerBackendCosmos.GraphQL.Dailies
 {
