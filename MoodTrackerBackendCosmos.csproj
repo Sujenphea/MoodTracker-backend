@@ -6,8 +6,12 @@
 
   <ItemGroup>
     <None Remove="Newtonsoft.Json" />
+    <None Remove="HotChocolate" />
+    <None Remove="HotChocolate.AspNetCore" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="HotChocolate" Version="11.3.7" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="11.3.7" />
   </ItemGroup>
 </Project>

@@ -24,6 +24,9 @@ namespace MoodTrackerBackendCosmos
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services
+                .AddGraphQLServer();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +52,7 @@ namespace MoodTrackerBackendCosmos
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapGraphQL();
                 endpoints.MapControllers();
             });
         }
