@@ -36,7 +36,7 @@ namespace MoodTrackerBackendCosmos
 
             services.AddControllers();
 
-            services.AddAuthorization();
+            //services.AddAuthorization();
 
             services
                 .AddGraphQLServer()
@@ -51,20 +51,20 @@ namespace MoodTrackerBackendCosmos
                 .AddType<UserType>()
             ;
 
-            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]));
+            //var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]));
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters =
-                        new TokenValidationParameters
-                        {
-                            ValidIssuer = "MSA-Yearbook",
-                            ValidAudience = "MSA-Student",
-                            ValidateIssuerSigningKey = true,
-                            IssuerSigningKey = signingKey
-                        };
-                });
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //    .AddJwtBearer(options =>
+            //    {
+            //        options.TokenValidationParameters =
+            //            new TokenValidationParameters
+            //            {
+            //                ValidIssuer = "MSA-Yearbook",
+            //                ValidAudience = "MSA-Student",
+            //                ValidateIssuerSigningKey = true,
+            //                IssuerSigningKey = signingKey
+            //            };
+            //    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,8 +86,8 @@ namespace MoodTrackerBackendCosmos
 
             app.UseRouting();
 
-            app.UseAuthorization();
-            app.UseAuthentication();
+            //app.UseAuthorization();
+            //app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
