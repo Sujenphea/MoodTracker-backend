@@ -23,6 +23,9 @@ namespace MoodTrackerBackendCosmos
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = "AccountEndpoint=https://moodtracker.documents.azure.com:443/;AccountKey=7bQ6dhl6Te9y35yOVjQQnYT6BN62UTZSeOTGuqRBYsonjtpQPCDuh1CboKw3j1qG7TbNnIyFAacZ48kZAatYuw==;";
+            services.AddPooledDbContextFactory<AppDbContext>(options => options.UseCosmos(connectionString, "moodtracker"));
+
             services.AddControllers();
 
             services
