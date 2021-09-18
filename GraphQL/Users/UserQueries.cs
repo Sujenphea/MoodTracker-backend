@@ -6,6 +6,7 @@ using MoodTrackerBackendCosmos.Data;
 using MoodTrackerBackendCosmos.Extensions;
 using User = MoodTrackerBackendCosmos.Models.User;
 using System.Security.Claims;
+using HotChocolate.AspNetCore.Authorization;
 
 namespace MoodTrackerBackendCosmos.GraphQL.Users
 {
@@ -25,6 +26,7 @@ namespace MoodTrackerBackendCosmos.GraphQL.Users
         }
 
         [UseAppDbContext]
+        [Authorize]
         public User GetSelf(ClaimsPrincipal claimsPrincipal, [ScopedService] AppDbContext context)
         {
             var userIdStr = claimsPrincipal.Claims.First(c => c.Type == "userId").Value;

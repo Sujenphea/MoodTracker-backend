@@ -14,6 +14,9 @@
     <None Remove="HotChocolate.Data" />
     <None Remove="HotChocolate.Data.EntityFramework" />
     <None Remove="Microsoft.EntityFrameworkCore.Tools" />
+    <None Remove="HotChocolate.AspNetCore.Authorization" />
+    <None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <None Remove="Octokit" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -28,5 +31,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="11.3.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.10" />
+    <PackageReference Include="Octokit" Version="0.50.0" />
   </ItemGroup>
 </Project>

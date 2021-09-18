@@ -6,6 +6,10 @@ using MoodTrackerBackendCosmos.Data;
 using MoodTrackerBackendCosmos.Extensions;
 using MoodTrackerBackendCosmos.Models;
 using System.Threading;
+using HotChocolate.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.Linq;
+using HotChocolate.AspNetCore;
 
 namespace MoodTrackerBackendCosmos.GraphQL.Dailies
 {
@@ -15,14 +19,15 @@ namespace MoodTrackerBackendCosmos.GraphQL.Dailies
     public class DailyMutations
     {
         [UseAppDbContext]
-        //[Authorize]
-        public async Task<Daily> AddDailyAsync(AddDailyInput input, [ScopedService] AppDbContext context, CancellationToken cancellationToken)
+        [Authorize]
+        public async Task<Daily> AddDailyAsync(AddDailyInput input, ClaimsPrincipal claimsPrincipal, [ScopedService] AppDbContext context, CancellationToken cancellationToken)
         {
+            var userId = claimsPrincipal.Claims.First(c => c.Type == "userId").Value;
             var daily = new Daily
             {
                 Id = Guid.NewGuid().ToString(),
                 Description = input.Description,
-                UserId = input.UserId,
+                UserId = userId,
                 DateCreated = DateTime.Now.ToString("dd.MM.yyyy")
             };
 
@@ -33,10 +38,19 @@ namespace MoodTrackerBackendCosmos.GraphQL.Dailies
         }
 
         [UseAppDbContext]
-        //[Authorize]
-        public async Task<Daily> EditDailyAsync(EditDailyInput input, [ScopedService] AppDbContext context, CancellationToken cancellationToken)
+        [Authorize]
+        public async Task<Daily> EditDailyAsync(EditDailyInput input, ClaimsPrincipal claimsPrincipal, [ScopedService] AppDbContext context, CancellationToken cancellationToken)
         {
+            var userId = claimsPrincipal.Claims.First(c => c.Type == "userId").Value;
             var daily = await context.Dailies.FindAsync(input.Id);
+
+            if (daily.UserId != userId)
+            {
+                throw new GraphQLRequestException(ErrorBuilder.New()
+                    .SetMessage("Not owned by user")
+                    .SetCode("AUTH_NOT_AUTHORIZED")
+                    .Build());
+            }
 
             daily.Description = input.Description ?? daily.Description;
 
@@ -46,6 +60,6 @@ namespace MoodTrackerBackendCosmos.GraphQL.Dailies
         }
     }
 
-    public record AddDailyInput(string Description, string UserId);
+    public record AddDailyInput(string Description);
     public record EditDailyInput(string Id, string? Description, string? UserId);
 }

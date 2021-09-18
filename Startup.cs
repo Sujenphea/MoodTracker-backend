@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using MoodTrackerBackendCosmos.Data;
 using MoodTrackerBackendCosmos.GraphQL.Dailies;
 using MoodTrackerBackendCosmos.GraphQL.UserGraph;
@@ -23,7 +26,7 @@ namespace MoodTrackerBackendCosmos
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public static IConfiguration Configuration { get; private set; } = default!;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -33,8 +36,11 @@ namespace MoodTrackerBackendCosmos
 
             services.AddControllers();
 
+            services.AddAuthorization();
+
             services
                 .AddGraphQLServer()
+                .AddAuthorization()
                 .AddQueryType(d => d.Name("Query"))
                     .AddTypeExtension<UserQueries>()
                     .AddTypeExtension<DailyQueries>()
@@ -44,6 +50,21 @@ namespace MoodTrackerBackendCosmos
                 .AddType<DailyType>()
                 .AddType<UserType>()
             ;
+
+            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]));
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters =
+                        new TokenValidationParameters
+                        {
+                            ValidIssuer = "MSA-Yearbook",
+                            ValidAudience = "MSA-Student",
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = signingKey
+                        };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,7 +86,8 @@ namespace MoodTrackerBackendCosmos
 
             app.UseRouting();
 
-            //app.UseAuthorization();
+            app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
