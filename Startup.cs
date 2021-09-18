@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MoodTrackerBackendCosmos.Data;
 using MoodTrackerBackendCosmos.GraphQL.Dailies;
+using MoodTrackerBackendCosmos.GraphQL.UserGraph;
 using MoodTrackerBackendCosmos.GraphQL.Users;
 
 namespace MoodTrackerBackendCosmos
@@ -37,6 +38,9 @@ namespace MoodTrackerBackendCosmos
                 .AddQueryType(d => d.Name("Query"))
                     .AddTypeExtension<UserQueries>()
                     .AddTypeExtension<DailyQueries>()
+                .AddMutationType(d => d.Name("Mutation"))
+                    .AddTypeExtension<DailyMutations>()
+                    .AddTypeExtension<UserMutations>()
                 .AddType<DailyType>()
                 .AddType<UserType>()
             ;
