@@ -40,7 +40,7 @@ namespace MoodTrackerBackendCosmos
 
             services
                 .AddGraphQLServer()
-                .AddAuthorization()
+                //.AddAuthorization()
                 .AddQueryType(d => d.Name("Query"))
                     .AddTypeExtension<UserQueries>()
                     .AddTypeExtension<DailyQueries>()
