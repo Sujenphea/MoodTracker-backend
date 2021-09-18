@@ -1,12 +1,12 @@
-﻿using finalMoodTracker.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Azure.Cosmos;
-using User = finalMoodTracker.Models.User;
+using User = MoodTrackerBackendCosmos.Models.User;
 using System.Linq;
 using Microsoft.Azure.Cosmos.Linq;
 using System;
 using System.Collections.Generic;
 using MoodTrackerBackendCosmos.Extensions;
+using MoodTrackerBackendCosmos.Models;
 
 namespace MoodTrackerBackendCosmos.Data
 {
@@ -24,15 +24,15 @@ namespace MoodTrackerBackendCosmos.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.HasDefaultContainer("users");
+            modelBuilder.HasDefaultContainer("users");
 
-            //modelBuilder.Entity<User>()
-            //    .ToContainer<User>("users")
-            //    .HasPartitionKey(o => o.Name);
+            modelBuilder.Entity<User>()
+                .ToContainer<User>("users")
+                .HasPartitionKey(o => o.Name);
 
-            //modelBuilder.Entity<Daily>()
-            //    .ToContainer<Daily>("dailies")
-            //    .HasPartitionKey(o => o.UserId);
+            modelBuilder.Entity<Daily>()
+                .ToContainer<Daily>("dailies")
+                .HasPartitionKey(o => o.UserId);
         }
     }
 }

@@ -5,9 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MoodTrackerBackendCosmos.Data;
+using MoodTrackerBackendCosmos.GraphQL.Dailies;
+using MoodTrackerBackendCosmos.GraphQL.Users;
 
 namespace MoodTrackerBackendCosmos
 {
@@ -29,7 +33,13 @@ namespace MoodTrackerBackendCosmos
             services.AddControllers();
 
             services
-                .AddGraphQLServer();
+                .AddGraphQLServer()
+                .AddQueryType(d => d.Name("Query"))
+                    .AddTypeExtension<UserQueries>()
+                    .AddTypeExtension<DailyQueries>()
+                .AddType<DailyType>()
+                .AddType<UserType>()
+            ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
