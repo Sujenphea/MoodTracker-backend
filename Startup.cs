@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using MoodTrackerBackendCosmos.Data;
 using MoodTrackerBackendCosmos.GraphQL.Dailies;
+using MoodTrackerBackendCosmos.GraphQL.DataLoader;
 using MoodTrackerBackendCosmos.GraphQL.UserGraph;
 using MoodTrackerBackendCosmos.GraphQL.Users;
 
@@ -56,6 +57,7 @@ namespace MoodTrackerBackendCosmos
                     .AddTypeExtension<UserMutations>()
                 .AddType<DailyType>()
                 .AddType<UserType>()
+                .AddDataLoader<DailiesByUserIdDataLoader>()
             ;
 
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWTSecret"]));

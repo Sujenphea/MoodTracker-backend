@@ -4,6 +4,9 @@ using MoodTrackerBackendCosmos.Extensions;
 using MoodTrackerBackendCosmos.Models;
 using HotChocolate;
 using HotChocolate.Types;
+using MoodTrackerBackendCosmos.GraphQL.DataLoader;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MoodTrackerBackendCosmos.GraphQL.Dailies
 {
@@ -17,9 +20,9 @@ namespace MoodTrackerBackendCosmos.GraphQL.Dailies
         }
 
         [UseAppDbContext]
-        public IQueryable<Daily> GetDailiesByUserId(string id, [ScopedService] AppDbContext context)
+        public Task<Daily[]> GetDailiesByUserId(string id, DailiesByUserIdDataLoader dataLoader, [ScopedService] AppDbContext context, CancellationToken cancellationToken)
         {
-            return context.Dailies.Where(s => s.UserId == id);
+            return dataLoader.LoadAsync(id, cancellationToken);
         }
     }
 }
