@@ -1,4 +1,5 @@
 # Moodiful
+![Logo](./Assets/moodiful_dark.png)
 ## Introduction
 Ever feel anxious and finding nowhere to place your thoughts or rants?
 Where else are you looking for?!
