@@ -37,4 +37,5 @@ Mutation
 - Deployment: Microsoft Azure Web App
 - GraphQL Server: Hot Chocolate
 - Public API: http://api.forismatic.com
+- Authentication: GitHub OAuth
 
