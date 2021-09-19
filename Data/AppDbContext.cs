@@ -19,8 +19,7 @@ namespace MoodTrackerBackendCosmos.Data
         public DbSet<User> Users { get; set; } = default!;
         public DbSet<Daily> Dailies { get; set; } = default!;
 
-        ////https://stackoverflow.com/questions/48743165/toarrayasync-throws-the-source-iqueryable-doesnt-implement-iasyncenumerable
-        //public IQueryable<User>? Users { get; set; } = new AsyncEnumerableQuery<User>(Enumerable.Empty<User>());
+        //https://stackoverflow.com/questions/48743165/toarrayasync-throws-the-source-iqueryable-doesnt-implement-iasyncenumerable
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

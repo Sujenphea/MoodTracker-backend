@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Net;
-using System.Net.Http;
+﻿using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 
@@ -20,7 +17,6 @@ namespace MoodTrackerBackendCosmos.Controllers
             // https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/console-webapiclient
 
             client.DefaultRequestHeaders.Accept.Clear();
-            //client.DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
 
             var stringTask = client.GetStringAsync("http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json");
 
@@ -28,11 +24,6 @@ namespace MoodTrackerBackendCosmos.Controllers
 
             dynamic stuff = JObject.Parse(msg);
 
-            //string text = stuff.quoteText;
-            //string author = stuff.quoteAuthor;
-            //string link = stuff.quoteLink;
-
-            //return Ok(msg);
             return Ok(msg);
         }
     }

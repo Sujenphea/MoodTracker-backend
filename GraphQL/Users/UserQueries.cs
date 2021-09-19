@@ -35,22 +35,3 @@ namespace MoodTrackerBackendCosmos.GraphQL.Users
         }
     }
 }
-
-
-
-//var sqlQueryText = "SELECT * FROM c";
-//QueryDefinition queryDefinition = new QueryDefinition(sqlQueryText);
-//FeedIterator<User> queryResultSetIterator = context.container.GetItemQueryIterator<User>(queryDefinition);
-
-//List<User> families = new List<User>();
-
-//while (queryResultSetIterator.HasMoreResults)
-//{
-//    FeedResponse<User> currentResultSet = await queryResultSetIterator.ReadNextAsync();
-//    foreach (User family in currentResultSet)
-//    {
-//        families.Add(family);
-//    }
-//}
-
-//return families;

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
 namespace MoodTrackerBackendCosmos.Models
@@ -20,7 +18,7 @@ namespace MoodTrackerBackendCosmos.Models
         [JsonProperty(PropertyName = "userId")]
         public string UserId { get; set; }
 
-        [Newtonsoft.Json.JsonIgnore]
+        [JsonIgnore]
         public User User { get; set; } = null!;
     }
 }
